@@ -1,6 +1,7 @@
 # Creiamo un Agente AI da zero con Python
 
-Benvenuti al repository del **Beginner's Day**, l'evento di apertura di **PyCon Italia 2026** curato da **Datamasters**.
+Benvenuti al repository del **Beginner's Day**, l'evento di apertura di **PyCon Italia 2026** 
+*by Data Masters*   <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/60c784605fd8980001d96a17/0x0.png" width=20 >
 
 Questo workshop guida passo passo nella costruzione di un piccolo **Travel Agent AI**: un assistente capace di usare funzioni Python, chiamare API REST gratuite, recuperare dati reali su città, meteo e paesi, calcolare budget di viaggio e produrre consigli pratici per la valigia.
 
@@ -64,62 +65,56 @@ Il notebook è strutturato in passaggi progressivi.
 * Creazione del tool `calculate_trip_budget`.  
 * Primo agente con un solo tool.
 
-### 3\. Esercizio: dividere un costo tra più persone
-
-* Creazione del tool `split_cost_between_people`.  
-* Validazione degli input.  
-* Estensione dell'agente con un nuovo strumento.
-
-### 4\. API REST in Python: geocoding
+### 3\. API REST in Python: geocoding
 
 * Anatomia di una richiesta HTTP con `requests.get()`.  
 * Uso dell'API gratuita di geocoding di Open-Meteo.  
 * Creazione di una funzione wrapper `get_json`.  
 * Creazione del tool `search_city_tool`.
 
-### 5\. API meteo: Open-Meteo Forecast
+### 4\. API meteo: Open-Meteo Forecast
 
 * Recupero del meteo corrente a partire da latitudine e longitudine.  
 * Interpretazione dei codici meteo.  
 * Creazione del tool `get_current_weather_tool`.
 
-### 6\. API paesi: REST Countries
+### 5\. API paesi: REST Countries
 
 * Recupero di capitale, valuta, lingue, popolazione e timezone.  
 * Creazione del tool `get_country_info_tool`.  
 * Gestione di nomi paese in italiano o inglese.
 
-### 7\. Tool deterministici: cosa mettere in valigia
+### 6\. Tool deterministici: cosa mettere in valigia
 
 * Quando conviene usare codice Python invece del modello.  
 * Regole `if/else` per suggerire vestiti e accessori.  
 * Creazione del tool `suggest_packing_items`.
 
-### 8\. Travel Agent con `create_agent()`
+### 7\. Travel Agent con `create_agent()`
 
 * Assemblaggio di tutti i tool in un unico agente.  
 * Scrittura del system prompt.  
 * Uso del modello per decidere quali tool chiamare e in quale ordine.  
 * Demo di una scheda viaggio completa.
 
-### 9\. Streaming e debug
+### 8\. Streaming e debug
 
 * Differenza tra `invoke()` e `stream()`.  
 * Visualizzazione dei passaggi intermedi dell'agente.  
 * Osservazione di tool call, risultati e risposta finale.
 
-### 10\. Affidabilità e gestione degli errori
+### 9\. Affidabilità e gestione degli errori
 
 * Test con città inesistenti, input numerici non validi e richieste ambigue.  
 * Uso di risposte `ok=False` nei tool.  
 * Strategie per evitare che l'agente inventi dati.
 
-### 11\. Output strutturato
+### 10\. Output strutturato
 
 * Creazione di un formato fisso per la scheda viaggio.  
 * Prompting per ottenere risposte più leggibili e consistenti.
 
-### 12\. Memoria conversazionale
+### 11\. Memoria conversazionale
 
 * Introduzione a `InMemorySaver`.  
 * Uso di `thread_id` per separare conversazioni diverse.  
@@ -139,20 +134,7 @@ Il workshop è pensato per essere eseguito in **Google Colab**, così tutti poss
 * Ollama installato;  
 * accesso a Internet per scaricare il modello e chiamare le API REST.
 
-### 2\. File del progetto
-
-La repository dovrebbe contenere almeno:
-
-```
-.
-├── README.md
-├── Pycon_2026_Beginner_Day_con_contenuti_slide.ipynb
-└── slides.pptx
-```
-
-Il notebook contiene sia il codice sia le spiegazioni derivate dalle slide, in modo che ogni sezione possa essere approfondita prima di eseguire le celle.
-
-### 3\. Installazione delle librerie
+### 2\. Installazione delle librerie
 
 Nel notebook sono già presenti le celle di installazione necessarie. Le librerie principali sono:
 
@@ -166,7 +148,7 @@ In base alla versione dell'ambiente, potrebbe essere utile installare anche:
 pip install langchain langgraph requests
 ```
 
-### 4\. Avvio di Ollama
+### 3\. Avvio di Ollama
 
 Nel notebook viene configurato Ollama direttamente da Colab. Il flusso generale è:
 
@@ -178,7 +160,7 @@ ollama pull <nome-modello>
 
 Nel notebook l'avvio del server Ollama viene gestito in background tramite Python, così è possibile continuare a eseguire le celle successive.
 
-### 5\. API utilizzate
+### 4\. API utilizzate
 
 Il workshop utilizza API gratuite e senza API key:
 
@@ -201,8 +183,7 @@ Questo rende il workshop adatto a un ambiente didattico: non servono credenziali
 7. Aggiungi progressivamente i tool basati su API.  
 8. Assembla il Travel Agent completo.  
 9. Prova le demo guidate.  
-10. Completa gli esercizi.  
-11. Sperimenta con nuove domande, nuove città e nuovi tool.
+10. Sperimenta con nuove domande, nuove città e nuovi tool.
 
 ## Idee per Estendere il Progetto
 
