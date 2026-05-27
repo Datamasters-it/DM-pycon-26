@@ -1,4 +1,4 @@
-<a target="_blank" href="https://colab.research.google.com/github/Datamasters-it/DM-pycon-26/blob/main/beginners-day/Student_Pycon_2026_Beginners_Day.ipynb">
+<a target="_blank" rel="noopener noreferrer" href="https://colab.research.google.com/github/Datamasters-it/DM-pycon-26/blob/main/beginners-day/Student_Pycon_2026_Beginners_Day.ipynb">
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
 </a>
 
