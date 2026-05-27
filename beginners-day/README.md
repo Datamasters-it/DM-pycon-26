@@ -1,3 +1,7 @@
+<a target="_blank" href="https://colab.research.google.com/github/Datamasters-it/DM-pycon-26/blob/main/beginners-day/Student_Pycon_2026_Beginners_Day.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>
+
 # Creiamo un Agente AI da zero con Python
 
 Benvenuti al repository del **Beginner's Day**, l'evento di apertura di **PyCon Italia 2026** 
