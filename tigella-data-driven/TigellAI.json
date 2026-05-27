@@ -1,0 +1,937 @@
+{
+  "name": "TigellAI",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        -224,
+        128
+      ],
+      "id": "693b1f75-d59c-4da1-bc20-196a4fb8f4ad",
+      "name": "Date & Time"
+    },
+    {
+      "parameters": {
+        "chatId": "917787172",
+        "text": "={{ $json.text }}\n\nPowered by TigellAI ✨",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2432,
+        -16
+      ],
+      "id": "7520d936-3c3b-4398-8517-f0313c50e241",
+      "name": "Send a text message",
+      "webhookId": "2ee49564-6d6f-4d83-8939-1fe5ebd86f8c",
+      "credentials": {
+        "telegramApi": {
+          "id": "zk4AODxAMTpIffj9",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $json.currentDate }}",
+        "format": "custom",
+        "customFormat": "yyyy-MM-dd HH:MM",
+        "outputFieldName": "Data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        64,
+        128
+      ],
+      "id": "b25ef6b4-eba0-4bf1-9cba-c24c591c8920",
+      "name": "Format Data"
+    },
+    {
+      "parameters": {
+        "content": "## Agente AI 🤖\nQui settiamo i vari servizi utili per il nostro Agente AI",
+        "height": 848,
+        "width": 3412,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -736,
+        -64
+      ],
+      "id": "b6602db1-43d1-4f41-aed6-ab80f3abc082",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## RAG\nUtilizziamo una nostra cartella su Drive per caricare l'immagine del nostro menù",
+        "height": 448,
+        "width": 960,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -592,
+        400
+      ],
+      "id": "3827a2b3-6139-4be4-8306-c291b7d43b28",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:v1.5"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        1136,
+        560
+      ],
+      "id": "6fe908be-9f32-42b5-a3cf-6539ddbd3292",
+      "name": "Embeddings Ollama",
+      "credentials": {
+        "ollamaApi": {
+          "id": "ro337Ln2FcwzddLA",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Inserisci il tuo menù",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "File",
+              "fieldType": "file",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -448,
+        512
+      ],
+      "id": "7ed37ebe-5449-4860-8034-56c3e8c0f434",
+      "name": "On form submission",
+      "webhookId": "a1d262b0-1e21-4ebf-906f-703d49270231"
+    },
+    {
+      "parameters": {
+        "cityName": "Bologna",
+        "language": "it"
+      },
+      "type": "n8n-nodes-base.openWeatherMap",
+      "typeVersion": 1,
+      "position": [
+        352,
+        128
+      ],
+      "id": "f7bf778a-3a03-4162-b3f9-6ddcb15a5d5a",
+      "name": "OpenWeatherMap",
+      "credentials": {
+        "openWeatherMapApi": {
+          "id": "8b2nD7POOeKmtgBh",
+          "name": "OpenWeatherMap account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5.5",
+          "mode": "list",
+          "cachedResultName": "gpt-5.5"
+        },
+        "responsesApiEnabled": false,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        656,
+        336
+      ],
+      "id": "78f1a7aa-6dc1-440c-86b1-54151f41344f",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "pvlo5t4K36hFLQvx",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "binaryPropertyName": "File",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        -224,
+        512
+      ],
+      "id": "6f29db04-91fa-48be-897d-e90f791ce8a0",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        736
+      ],
+      "id": "e804261f-8481-477b-81b9-ab3784acaadc",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Ciao, di cosa hai voglia?",
+        "options": {
+          "subtitle": "Dimmi cosa vuoi ordinare, al resto ci penso io ;)",
+          "title": "TigellAI ✨",
+          "customCss": "=:root {\n  /* Colors */\n  --chat--color--primary: #e74266;\n  --chat--color--primary-shade-50: #db4061;\n  --chat--color--primary--shade-100: #cf3c5c;\n  --chat--color--secondary: #20b69e;\n  --chat--color-secondary-shade-50: #1ca08a;\n  --chat--color-white: #fff;\n  --chat--color-light: #f2f4f8;\n  --chat--color-light-shade-50: #e6e9f1;\n  --chat--color-light-shade-100: #c2c5cc;\n  --chat--color-medium: #d2d4d9;\n  --chat--color-dark: #101330;\n  --chat--color-disabled: #d2d4d9;\n  --chat--color-typing: #404040;\n\n  /* Base Layout */\n  --chat--spacing: 1rem;\n  --chat--border-radius: 0.25rem;\n  --chat--transition-duration: 0.15s;\n  --chat--font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;\n\n  /* Window Dimensions */\n  --chat--window--width: 400px;\n  --chat--window--height: 600px;\n  --chat--window--bottom: var(--chat--spacing);\n  --chat--window--right: var(--chat--spacing);\n  --chat--window--z-index: 9999;\n  --chat--window--border: 1px solid var(--chat--color-light-shade-50);\n  --chat--window--border-radius: var(--chat--border-radius);\n  --chat--window--margin-bottom: var(--chat--spacing);\n\n  /* Header Styles */\n  --chat--header-height: auto;\n  --chat--header--padding: var(--chat--spacing);\n  --chat--header--background: var(--chat--color-dark);\n  --chat--header--color: var(--chat--color-light);\n  --chat--header--border-top: none;\n  --chat--header--border-bottom: none;\n  --chat--header--border-left: none;\n  --chat--header--border-right: none;\n  --chat--heading--font-size: 2em;\n  --chat--subtitle--font-size: inherit;\n  --chat--subtitle--line-height: 1.8;\n\n  /* Message Styles */\n  --chat--message--font-size: 1rem;\n  --chat--message--padding: var(--chat--spacing);\n  --chat--message--border-radius: var(--chat--border-radius);\n  --chat--message-line-height: 1.5;\n  --chat--message--margin-bottom: calc(var(--chat--spacing) * 1);\n  --chat--message--bot--background: var(--chat--color-white);\n  --chat--message--bot--color: var(--chat--color-dark);\n  --chat--message--bot--border: none;\n  --chat--message--user--background: var(--chat--color--secondary);\n  --chat--message--user--color: var(--chat--color-white);\n  --chat--message--user--border: none;\n  --chat--message--pre--background: rgba(0, 0, 0, 0.05);\n  --chat--messages-list--padding: var(--chat--spacing);\n\n  /* Toggle Button */\n  --chat--toggle--size: 64px;\n  --chat--toggle--width: var(--chat--toggle--size);\n  --chat--toggle--height: var(--chat--toggle--size);\n  --chat--toggle--border-radius: 50%;\n  --chat--toggle--background: var(--chat--color--primary);\n  --chat--toggle--hover--background: var(--chat--color--primary-shade-50);\n  --chat--toggle--active--background: var(--chat--color--primary--shade-100);\n  --chat--toggle--color: var(--chat--color-white);\n\n  /* Input Area */\n  --chat--textarea--height: 50px;\n  --chat--textarea--max-height: 30rem;\n  --chat--input--font-size: inherit;\n  --chat--input--border: 0;\n  --chat--input--border-radius: 0;\n  --chat--input--padding: 0.8rem;\n  --chat--input--background: var(--chat--color-white);\n  --chat--input--text-color: initial;\n  --chat--input--line-height: 1.5;\n  --chat--input--placeholder--font-size: var(--chat--input--font-size);\n  --chat--input--border-active: 0;\n  --chat--input--left--panel--width: 2rem;\n\n  /* Button Styles */\n  --chat--button--padding: calc(var(--chat--spacing) * 5 / 8) var(--chat--spacing);\n  --chat--button--border-radius: var(--chat--border-radius);\n  --chat--button--font-size: 1rem;\n  --chat--button--line-height: 1;\n  --chat--button--color--primary: var(--chat--color-light);\n  --chat--button--background--primary: var(--chat--color--secondary);\n  --chat--button--border--primary: none;\n  --chat--button--color--primary--hover: var(--chat--color-light);\n  --chat--button--background--primary--hover: var(--chat--color-secondary-shade-50);\n  --chat--button--border--primary--hover: none;\n  --chat--button--color--primary--disabled: var(--chat--color-light);\n  --chat--button--background--primary--disabled: #81bbb1;\n  --chat--button--border--primary--disabled: none;\n  --chat--button--color--secondary: var(--chat--color-light);\n  --chat--button--background--secondary: hsl(0, 0%, 58%);\n  --chat--button--border--secondary: none;\n  --chat--button--color--secondary--hover: var(--chat--color-light);\n  --chat--button--background--secondary--hover: hsl(0, 0%, 51%);\n  --chat--button--border--secondary--hover: none;\n  --chat--button--color--secondary--disabled: var(--chat--color-light);\n  --chat--button--background--secondary--disabled: hsl(0, 0%, 78%);\n  --chat--button--border--secondary--disabled: none;\n  --chat--close--button--color-hover: var(--chat--color--primary);\n\n  /* Send and File Buttons */\n  --chat--input--send--button--background: var(--chat--color-white);\n  --chat--input--send--button--color: var(--chat--color--secondary);\n  --chat--input--send--button--background-hover: var(--chat--color--primary-shade-50);\n  --chat--input--send--button--color-hover: var(--chat--color-secondary-shade-50);\n  --chat--input--file--button--background: var(--chat--color-white);\n  --chat--input--file--button--color: var(--chat--color--secondary);\n  --chat--input--file--button--background-hover: var(--chat--input--file--button--background);\n  --chat--input--file--button--color-hover: var(--chat--color-secondary-shade-50);\n  --chat--files-spacing: 0.25rem;\n\n  /* Body and Footer */\n  --chat--body--background: var(--chat--color-light);\n  --chat--footer--background: var(--chat--color-light);\n  --chat--footer--color: var(--chat--color-dark);\n}\n\n\n/* You can override any class styles, too. Right-click inspect in Chat UI to find class to override. */\n.chat-message {\n\tmax-width: 50%;\n}",
+          "responseMode": "responseNodes"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -448,
+        128
+      ],
+      "id": "a8d613cc-4455-4b1c-94f8-192bb2f306f2",
+      "name": "When chat message received",
+      "webhookId": "90a72297-d618-4e46-95bc-565b422f4e2d"
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "917787172",
+        "binaryData": true,
+        "additionalFields": {
+          "caption": "=🎫 Codice ordine: {{ $('Genera Token Ordine').item.json.codice_ordine }}\nMostralo alla cassa per ritirare il tuo ordine!"
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        2432,
+        176
+      ],
+      "id": "59226b51-3b75-4202-85a3-ee208f200c4c",
+      "name": "Invia QR Code1",
+      "webhookId": "06c08aee-17fc-427d-ae6e-2dc94256ca40",
+      "credentials": {
+        "telegramApi": {
+          "id": "zk4AODxAMTpIffj9",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "import json\nimport base64\nimport hashlib\nimport urllib.parse\nfrom datetime import datetime\n\nitem = _items[0]\noutput = item[\"json\"].get(\"output\", \"Ordine non specificato\")\n\n# Payload JSON serializzato e codificato in base64 url-safe\npayload = json.dumps(\n    {\"ts\": datetime.now().isoformat(), \"txt\": output[:200]},\n    ensure_ascii=False,\n    separators=(\",\", \":\")\n)\ntoken = base64.urlsafe_b64encode(payload.encode()).decode()\n\n# Codice breve da mostrare alla cassa (8 hex chars del sha256 del token)\ncodice = hashlib.sha256(token.encode()).hexdigest()[:8].upper()\n\n# Testo leggibile che va dentro il QR (mostrato quando scansionato)\nqr_testo = \"Tigelleria Artificiale\\n{}\\n\\n{}\".format(\n    datetime.now().strftime(\"%d/%m/%Y %H:%M\"),\n    codice\n)\n\n# URL per api.qrserver.com — gratuito, no auth\nqr_url = \"https://api.qrserver.com/v1/create-qr-code/?\" + urllib.parse.urlencode({\n    \"data\": qr_testo,\n    \"size\": \"300x300\",\n    \"format\": \"png\",\n    \"ecc\": \"M\"\n})\n\nreturn [{\n    \"json\": {\n        **item[\"json\"],\n        \"token\":         token,\n        \"codice_ordine\": codice,\n        \"qr_url\":        qr_url,\n    }\n}]"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1984,
+        128
+      ],
+      "id": "61b1abb8-6bd6-43b5-b1d8-41f4611e78da",
+      "name": "Genera Token Ordine"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.qr_url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2208,
+        128
+      ],
+      "id": "f85bc9ff-42a5-416c-b0c0-7297e44c9abc",
+      "name": "Genera QR Code"
+    },
+    {
+      "parameters": {
+        "language": "pythonNative",
+        "pythonCode": "from datetime import datetime\n\nitems = _items\nitem = items[0]\n\nora = datetime.now()\nh = ora.hour\ngiorno = ora.weekday()  # 0 = lunedi, 6 = domenica\n\ngiorni = [\"lunedi\", \"martedi\", \"mercoledi\", \"giovedi\", \"venerdi\", \"sabato\", \"domenica\"]\ngiorno_nome = giorni[giorno]\nis_weekend = giorno >= 5\n\n# Mappa ogni slot orario su un momento emotivo + mood\nif 0 <= h < 6:\n    momento = \"notte fonda\"\n    mood = \"ha bisogno di massimo conforto, qualcosa di caldo e avvolgente che lo consoli\"\nelif 6 <= h < 9:\n    if is_weekend:\n        momento = \"mattina del weekend\"\n        mood = \"si sveglia senza fretta, vuole coccolarsi con qualcosa di ricco senza sensi di colpa\"\n    else:\n        momento = \"mattina presto\"\n        mood = \"ha fretta e ha bisogno di energia per iniziare la giornata lavorativa\"\nelif 9 <= h < 12:\n    momento = \"mattinata\"\n    mood = \"si concede una pausa, vuole qualcosa di soddisfacente ma non troppo pesante\"\nelif 12 <= h < 14:\n    momento = \"pranzo\"\n    mood = \"ha poco tempo, cerca qualcosa di veloce, sostanzioso e senza fronzoli\"\nelif 14 <= h < 17:\n    momento = \"pomeriggio\"\n    mood = \"non ha una vera fame, cerca uno sfizio o qualcosa di insolito per spezzare la giornata\"\nelif 17 <= h < 20:\n    momento = \"aperitivo\"\n    mood = \"e in mood sociale, probabilmente non e solo e vuole qualcosa da condividere e da accompagnare con una bevanda\"\nelif 20 <= h < 23:\n    momento = \"cena\"\n    mood = \"si e guadagnato qualcosa di speciale dopo una lunga giornata, il prezzo conta meno del piacere\"\nelse:\n    momento = \"tarda serata\"\n    mood = \"e stanco ma irrequieto, cerca il comfort food definitivo, qualcosa che lo faccia sentire a casa\"\n\n# Costruisce la stringa di contesto emotivo\ncontesto_emotivo = f\"{momento} di {giorno_nome}. Il cliente probabilmente {mood}.\"\n\n# Aggiunge contesto extra per il weekend\nif is_weekend and 11 <= h < 15:\n    contesto_emotivo += \" E weekend: c'e piu tempo, meno stress e maggiore apertura a sperimentare gusti nuovi.\"\nelif is_weekend and h >= 19:\n    contesto_emotivo += \" Serata del weekend: atmosfera rilassata, voglia di stare bene e di non avere rimpianti.\"\n\n# Restituisce tutti i campi precedenti (meteo, ecc.) piu il nuovo contesto\nreturn [{\n    \"json\": {\n        **item,\n        \"contesto_emotivo\": contesto_emotivo,\n        \"momento_nome\": momento,\n        \"giorno_settimana\": giorno_nome,\n        \"ora_corrente\": h\n    }\n}]\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        128
+      ],
+      "id": "8fa16a8f-2dac-4fd3-8a19-da14c4721121",
+      "name": "Contesto Emotivo"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "memoryKey": {
+          "__rl": true,
+          "value": "workshop",
+          "mode": "list",
+          "cachedResultName": "workshop"
+        },
+        "embeddingBatchSize": 10,
+        "clearStore": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        512
+      ],
+      "id": "7a495698-f553-49da-8ba1-b5517fc0a1e1",
+      "name": "DB Menù"
+    },
+    {
+      "parameters": {
+        "message": "={{ $json.text }}\n\n**ORDINE CONFERMATO**\n\nCodice ordine: **{{ $json.codice_ordine }}**\n\nMostralo alla cassa per ritirare il tuo ordine!\n\nQR-CODE:\n{{ $('Genera QR Code').item.json.qr_url }}\n\nPowered by TigellAI ✨",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        2432,
+        368
+      ],
+      "id": "ecdc006a-ffe2-4080-ba25-3bcb33e60c42",
+      "name": "Chat",
+      "webhookId": "10e88f7f-0455-42d3-8b32-f7198f937161"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2bf9a053-f963-424b-9b8d-a14066b08685",
+              "name": "text",
+              "value": "={{ $('AI Agent').item.json.output }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1760,
+        128
+      ],
+      "id": "5dbd2fe8-3e45-44b2-a39c-b3ded4bdea6f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "menù",
+        "memoryKey": {
+          "__rl": true,
+          "value": "workshop",
+          "mode": "list",
+          "cachedResultName": "workshop"
+        },
+        "topK": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        1056,
+        352
+      ],
+      "id": "7d7af659-a81a-4fea-a077-80075c352b2c",
+      "name": "Simple Vector Store"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        928,
+        352
+      ],
+      "id": "668e4996-3a50-47e6-a3f6-3870d9e2609c",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        1344,
+        352
+      ],
+      "id": "7e7b83fe-4dbc-4b04-8b57-6fe7c682d3b9",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=- Richiesta del cliente: {{ $('When chat message received').item.json.chatInput }}\n\n- Temperatura: {{ $('OpenWeatherMap').item.json.main.temp }}\n- Descrizione: {{ $('OpenWeatherMap').item.json.weather[0].description }}\n- Vento: {{ $('OpenWeatherMap').item.json.wind.speed }}\n- Ora: {{ $('Date & Time').item.json.currentDate }}\n- Contesto emotivo: {{ $json.contesto_emotivo }}{{ $('Contesto Emotivo').item.json.contesto_emotivo }}",
+        "options": {
+          "systemMessage": "Sei un esperto bolognese di tigelle con un dono speciale: senti l'umore delle persone e scegli per loro la tigella perfetta.\n\nIn base alla richiesta del cliente, alla temperatura, al meteo, al vento, all'ora e soprattutto al CONTESTO EMOTIVO del momento, devi:\n1. Scegliere la farcitura della tigella piu appropriata\n2. Abbinare una bevanda coerente con il momento della giornata\n3. Suggerire un contorno adatto\n4. Dare il prezzo totale\n\nIl contesto emotivo e il tuo segreto: usalo per calibrare il tono della risposta e la scelta degli ingredienti. Se e aperitivo suggerisci qualcosa di condivisibile. Se e notte fonda punta sul conforto. Se e pranzo veloce vai sul pratico.\n\nPrima di rispondere **controlla all'interno della memoria** se ci sono delle risposte del cliente ('Human') e modifica l'output secondo le sue richieste. \n\nUtilizza SEMPRE i seguenti tools:\n- Vector Store Retriever: ti fornisce il menu delle tigelle disponibili.\n\nRispondi solo con il consiglio, in modo caldo e personale. Non includere query fatte al vector store."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        960,
+        128
+      ],
+      "id": "927405f1-129d-47c0-98f0-c04b89b409b7",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "dc13e411-bfbd-4e1b-867b-c1493279fbac",
+              "leftValue": "={{ $json.data.approved }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1504,
+        128
+      ],
+      "id": "3dd355f7-b162-41e6-bfe6-7d6caaecc071",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "sendAndWait",
+        "message": "=Ordine suggerito:\n\n{{ $json.output }}\n\n------------------\nConfermi l'ordine?",
+        "responseType": "approval",
+        "blockUserInput": true,
+        "approvalOptions": {
+          "values": {
+            "approvalType": "double",
+            "approveLabel": "Conferma",
+            "disapproveLabel": "Annulla"
+          }
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chat",
+      "typeVersion": 1.3,
+      "position": [
+        1312,
+        128
+      ],
+      "id": "faa2db8f-d8c9-4c79-9d27-bdbd72f43985",
+      "name": "HIL",
+      "webhookId": "3e4b2ab5-27be-4bd1-8dd0-a32cfd65d5a2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=- Richiesta del cliente: {{ $('When chat message received').item.json.chatInput }}\n\n- Temperatura: {{ $('OpenWeatherMap').item.json.main.temp }}\n- Descrizione: {{ $('OpenWeatherMap').item.json.weather[0].description }}\n- Vento: {{ $('OpenWeatherMap').item.json.wind.speed }}\n- Ora: {{ $('Date & Time').item.json.currentDate }}\n- Contesto emotivo: {{ $json.contesto_emotivo }}{{ $('Contesto Emotivo').item.json.contesto_emotivo }}",
+        "options": {
+          "systemPromptTemplate": "=Sei un esperto bolognese di tigelle con un dono speciale: senti l'umore delle persone e scegli per loro la tigella perfetta.\n\nIn base alla richiesta del cliente, alla temperatura, al meteo, al vento, all'ora e soprattutto al CONTESTO EMOTIVO del momento, devi:\n1. Scegliere la farcitura della tigella piu appropriata\n2. Abbinare una bevanda coerente con il momento della giornata\n3. Suggerire un contorno adatto\n4. Dare il prezzo totale\n\nIl contesto emotivo e il tuo segreto: usalo per calibrare il tono della risposta e la scelta degli ingredienti. Se e aperitivo suggerisci qualcosa di condivisibile. Se e notte fonda punta sul conforto. Se e pranzo veloce vai sul pratico.\n\nPrima di rispondere utilizza SEMPRE la memoria ed i seguenti tools:\n- Vector Store Retriever: ti fornisce il menu delle tigelle disponibili.\n\nSe all'interno della memoria ci sono delle risposte del cliente modifica l'output secondo le sue richieste.\n\nRispondi solo con il consiglio, in modo caldo e personale. Non includere query fatte al vector store.\n----------------\nContext: {context}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.7,
+      "position": [
+        -448,
+        960
+      ],
+      "id": "5c844445-ed47-4170-b4d5-d7f99a9b0763",
+      "name": "Question and Answer Chain",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "memoryKey": {
+          "__rl": true,
+          "value": "workshop",
+          "mode": "list",
+          "cachedResultName": "workshop"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        -448,
+        1392
+      ],
+      "id": "f7c06c23-2a14-4be8-aa31-8351915cd91c",
+      "name": "Menù",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatMistralCloud",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        1184
+      ],
+      "id": "c88c0a7c-1e22-485f-908c-e7bf840f8d29",
+      "name": "Mistral Cloud Chat Model",
+      "credentials": {
+        "mistralCloudApi": {
+          "id": "bZPARUmzD42kUbq7",
+          "name": "Mistral Cloud account"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.response }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "Pulisci l'input, restituisci solamente la lista completa dei piatti consigliati ed il prezzo totale."
+            }
+          ]
+        },
+        "batching": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        -80,
+        960
+      ],
+      "id": "b2998b89-b62b-410e-ba8f-6ce8ed02d45f",
+      "name": "Basic LLM Chain",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "topK": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.retrieverVectorStore",
+      "typeVersion": 1,
+      "position": [
+        -448,
+        1184
+      ],
+      "id": "007321d3-9297-48b5-b502-a998adc85d89",
+      "name": "Vector Store Retriever",
+      "disabled": true
+    }
+  ],
+  "pinData": {
+    "Extract from File": [
+      {
+        "json": {
+          "numpages": 2,
+          "numrender": 2,
+          "info": {
+            "PDFFormatVersion": "1.4",
+            "Language": null,
+            "EncryptFilterName": null,
+            "IsLinearized": false,
+            "IsAcroFormPresent": false,
+            "IsXFAPresent": false,
+            "IsCollectionPresent": false,
+            "IsSignaturesPresent": false,
+            "Author": "Tigelleria Artificiale",
+            "CreationDate": "D:20260511092540+00'00'",
+            "Creator": "anonymous",
+            "Keywords": "",
+            "ModDate": "D:20260511092540+00'00'",
+            "Producer": "ReportLab PDF Library - (opensource)",
+            "Subject": "unspecified",
+            "Title": "Menù Tigelleria Artificiale",
+            "Trapped": {
+              "name": "False"
+            }
+          },
+          "text": "PAGINA 1 / 2\nMENÙ\nTigelleria Artificiale\ntigelle, taglieri e bevande in stile emiliano-futuristico\nTigelle e basi\nPIATTO DETTAGLI PREZZO\nCestino di Tigelle farcite 4 pezzi € 8,50\nCestino di Tigelle farcite 6 pezzi € 12,00\nCestino di Tigelle vuote 4 pezzi € 3,50\nCestino di Tigelle vuote 8 pezzi € 6,00\nCestino misto 4 tigelle,\nfocaccia e\npiadina\n€ 7,00\nFocaccia bianca - € 6,50\nPiadina - € 6,50\nTigella farcita speciale\nPIATTO PREZZO\nRagù bolognese e grana padano (1\npezzo)\n€ 3,00\nRagù bolognese e grana padano (4 pezzi) € 11,00\nConsiglio del giorno\nComponi il tuo cestino scegliendo le farciture\nche preferisci: tradizione emiliana, colori pop\ne un pizzico di futuro.\nFarciture per tigelle\nPesto montanaro e scaglie di grana (lardo, aglio,\nrosmarino)\nMortadella Bologna (semplice o con stracchino,\nfriggione, paté di olive o crema di carciofi)\nCulaccia di prosciutto e crema di stracchino o carciofi\nProsciutto arrosto con friggione, stracchino o crema\ndi carciofi\nSalame e crema di stracchino o friggione\nTacchino con stracchino, friggione o paté di olive\nAcciughe e crema di stracchino\nCaponata e scaglie di Grana o paté di olive\nAlla Nutella\nFichi e crema di stracchino\nROSSO • VERDE • GIALLO: LA TIGELLA SI ACCENDE\n\nPAGINA 2 / 2\nMENÙ\nTigelleria Artificiale\nI nostri taglieri e antipasti\nPIATTO DESCRIZIONE PREZZO\nTaglierone di salumi e formaggi misti Selezione di salumi e formaggi regionali € 18,00\nGran Antipasto misto per 2 Salumi, formaggi, sott'oli, friggione e verdure al\nforno\n€ 19,00\nTagliere di formaggi misti Selezione di formaggi € 14,00\nAntipasto misto vegetariano Verdure al forno, sott'oli, friggione e formaggi € 10,00\nPolpettine al sugo In sugo di pomodoro € 6,00\nBevande\nBEVANDA PREZZO\nSpritz (Aperol, Campari, Bolognese, Emiliano) € 5,00\nBirra Ichnusa 33cl € 4,00\nGin Tonic (con Tonica Fever-Tree) da € 7,00\nAcqua 50cl € 1,50\nServizio\nCoperto\n€ 1,00 - € 1,50\nLa quota servizio può variare in base alla\nformula scelta.\nTigella Artificiale, sapore autentico\nUna grafica ispirata al logo: energia gialla, lettering rosso e verde, accenti ciano da\nfuturo e bordi da sticker vintage.\nBUON APPETITO",
+          "version": "5.3.31"
+        },
+        "binary": {},
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "On form submission": [
+      {
+        "json": {
+          "File": [
+            {
+              "filename": "tigelleria_artificiale_menu.pdf",
+              "mimetype": "application/pdf",
+              "size": 1654116
+            }
+          ],
+          "submittedAt": "2026-05-20T17:13:53.072+02:00",
+          "formMode": "test"
+        },
+        "binary": {
+          "File": {
+            "mimeType": "application/pdf",
+            "fileType": "pdf",
+            "fileExtension": "pdf",
+            "data": "filesystem-v2",
+            "fileName": "tigelleria_artificiale_menu.pdf",
+            "id": "filesystem-v2:workflows/Gb8wituSD3vodoz7/executions/temp/binary_data/3ffaff1d-4b70-4116-b550-1f953da6b95a",
+            "fileSize": "1.65 MB",
+            "bytes": 1654116
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Format Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Data": {
+      "main": [
+        [
+          {
+            "node": "OpenWeatherMap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama": {
+      "ai_embedding": [
+        [
+          {
+            "node": "DB Menù",
+            "type": "ai_embedding",
+            "index": 0
+          },
+          {
+            "node": "Simple Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenWeatherMap": {
+      "main": [
+        [
+          {
+            "node": "Contesto Emotivo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "DB Menù",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "DB Menù",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Genera Token Ordine": {
+      "main": [
+        [
+          {
+            "node": "Genera QR Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Genera QR Code": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Invia QR Code1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Chat",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contesto Emotivo": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Genera Token Ordine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "HIL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HIL": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Question and Answer Chain": {
+      "main": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mistral Cloud Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Basic LLM Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Menù": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Retriever",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Retriever": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v0",
+    "binaryMode": "separate",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "Europe/Rome",
+    "availableInMCP": false
+  },
+  "versionId": "28b74dc0-b167-4781-8737-b67fb80c05be",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9cdeda596b236009bac03815ee160a560d7ff2c877a1d30cb15c7a1a590fb057"
+  },
+  "id": "Gb8wituSD3vodoz7",
+  "tags": [
+    {
+      "updatedAt": "2025-09-01T10:12:47.018Z",
+      "createdAt": "2025-09-01T10:12:47.018Z",
+      "id": "YEJXvVv60ngvEFP7",
+      "name": "DM"
+    }
+  ]
+}
